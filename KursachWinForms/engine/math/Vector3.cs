@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Math
 {
-    public class Vector3
+    public sealed class Vector3
     {
         public double x, y, z;
 
@@ -60,7 +60,7 @@ namespace Engine.Math
 
         public override string ToString()
         {
-            return "(" + x+" "+ y + " "+ z + ")";
+            return "(" + System.Math.Round(x, 1) +" "+ System.Math.Round(y, 1) + " "+ System.Math.Round(z, 1) + ")";
         }
 
         public Vector3 normalize()

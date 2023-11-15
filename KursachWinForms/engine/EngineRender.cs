@@ -23,7 +23,7 @@ namespace Engine
 
         
         public readonly int width,height,depth;
-        public readonly double step_grid;
+        public double step_grid;
         public int[] zbuffer;
         private Grid grid;
 
@@ -36,7 +36,7 @@ namespace Engine
             MainCamera = new Camera();
             MainLight = new Light();
             this.pixel = pixel;
-            grid= new Grid(width,height,depth, step_grid);
+            grid= new Grid(width,height,depth);
             this.backgroud_color = backgroud_color;
         }
 
@@ -63,7 +63,8 @@ namespace Engine
         {
             clear_screen();
             alloc_zbuffer();
-            grid.DrawGrid(pixel,MainCamera);
+            grid.DrawGrid(pixel,MainCamera,step_grid);
+            grid.AnchorCamera(pixel,MainCamera,step_grid);
             for (int i=0;i<EObjects.Count;i++)
             {
                 //отрисовка сеткой

@@ -39,6 +39,7 @@ namespace Engine.Component
             model = modelObject;
         }
 
+        //отрисовка модели линиями
         public void DrawLine(Camera camera, int[] pixel, int width, int height)
         {
             Vector3 v0, v1;
@@ -49,31 +50,22 @@ namespace Engine.Component
                 for (int j = 0; j < 3; j++)
                 {
 
-                    v0 = model.points[face[j]] * transofrm.size;
-                    v1 = model.points[face[(j + 1) % 3]] * transofrm.size;
+                    v0 = model.points[face[j]] * transofrm.size * camera.zoom;
+                    v1 = model.points[face[(j + 1) % 3]] * transofrm.size * camera.zoom;
                     transofrm.Rotate(v0);
                     transofrm.Rotate(v1);
                     v0 = v0 + transofrm.position;
                     v1 = v1 + transofrm.position;
-                    //поворот объекта для камеры
+                    //поворот объекта для камеры и затем перемещение относительно камеры
+                    v0 = v0 + camera.position;
+                    v1 = v1 + camera.position;
                     transofrm.Rotate(v0, camera.angle);
                     transofrm.Rotate(v1, camera.angle);
-
-                    
-
-
-
 
                     int x0 = Convert.ToInt32((v0.x + 1.0) * width / 2.0);
                     int y0 = Convert.ToInt32((v0.y + 1.0) * height / 2.0);
                     int x1 = Convert.ToInt32((v1.x + 1.0) * width / 2.0);
                     int y1 = Convert.ToInt32((v1.y + 1.0) * height / 2.0);
-                    /*
-                    int x0 = Convert.ToInt32( ((v0.x + 1.0)/(1-v0.z/ 5)) * width / 2.0);
-                    int y0 = Convert.ToInt32(((v0.y + 1.0) / (1 - v0.z / 5)) * height / 2.0);
-                    int x1 = Convert.ToInt32(((v1.x + 1.0) / (1 - v1.z / 5)) * width / 2.0);
-                    int y1 = Convert.ToInt32(((v1.y + 1.0) / (1 - v1.z / 5)) * height / 2.0);
-                    */
 
                     //рисование линии
                     line(x0, y0, x1, y1, pixel, width, height);
@@ -81,8 +73,7 @@ namespace Engine.Component
             }
         }
 
-
-
+        //отрисовка модели
         public void Render(Camera camera, Light light, int[] pixel, int width, int height, int depth, int[] zbuffer)
         {
             //для реализации zbufer необходимо производить попиксельную отрисовку
@@ -92,21 +83,24 @@ namespace Engine.Component
 
                 int[] face = model.triangle[point_i];
 
-                v0 = model.points[face[0]] * transofrm.size;
-                v1 = model.points[face[1]] * transofrm.size;
-                v2 = model.points[face[2]] * transofrm.size;
+                v0 = model.points[face[0]] * transofrm.size * camera.zoom;
+                v1 = model.points[face[1]] * transofrm.size * camera.zoom;
+                v2 = model.points[face[2]] * transofrm.size * camera.zoom;
                 transofrm.Rotate(v0);
                 transofrm.Rotate(v1);
                 transofrm.Rotate(v2);
                 v0 = v0 + transofrm.position;
                 v1 = v1 + transofrm.position;
                 v2 = v2 + transofrm.position;
-                //поворот объекта для камеры
+                //поворот объекта для камеры и затем перемещение относительно камеры
+                v0 = v0 + camera.position;
+                v1 = v1 + camera.position;
+                v2 = v2 + camera.position;
                 transofrm.Rotate(v0, camera.angle);
                 transofrm.Rotate(v1, camera.angle);
                 transofrm.Rotate(v2, camera.angle);
 
-                // преобразуем в координаты экрана + в комментах без матриц (да прости меня чел из статьи) вычислем перспективу изображения
+                // преобразуем в координаты экрана
 
                 int x0 = Convert.ToInt32((v0.x + 1.0) * width / 2.0);
                 int y0 = Convert.ToInt32((v0.y + 1.0) * height / 2.0);
@@ -114,13 +108,6 @@ namespace Engine.Component
                 int y1 = Convert.ToInt32((v1.y + 1.0) * height / 2.0);
                 int x2 = Convert.ToInt32((v2.x + 1.0) * width / 2.0);
                 int y2 = Convert.ToInt32((v2.y + 1.0) * height / 2.0);
-                /*
-                int x0 = Convert.ToInt32(((v0.x + 1.0) / (1 - v0.z / 5)) * width / 2.0);
-                int y0 = Convert.ToInt32(((v0.y + 1.0) / (1 - v0.z / 5)) * height / 2.0);
-                int x1 = Convert.ToInt32(((v1.x + 1.0) / (1 - v1.z / 5)) * width / 2.0);
-                int y1 = Convert.ToInt32(((v1.y + 1.0) / (1 - v1.z / 5)) * height / 2.0);
-                int x2 = Convert.ToInt32(((v2.x + 1.0) / (1 - v2.z / 5)) * width / 2.0);
-                int y2 = Convert.ToInt32(((v2.y + 1.0) / (1 - v2.z / 5)) * height / 2.0);*/
                 
                 // не работаем с триугольниками вне экрана
                 if (x0 < 0 || x1 < 0 || x2 < 0 || x0 > width || x1 > width || x2 > width) return;
@@ -144,6 +131,7 @@ namespace Engine.Component
             }
         }
 
+        //отрисовка полигона
         private void triangle(Vector3 v0, Vector3 v1, Vector3 v2, int[] pixel, int[] zbuffer, int width, Color color_set)
         {
             if (v0.y == v1.y && v0.y == v2.y) return; // не отрисовываем вырожденый треугольник

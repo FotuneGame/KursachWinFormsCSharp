@@ -22,35 +22,69 @@ namespace KursachWinForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label_step_grid = new System.Windows.Forms.Label();
+            this.label_camera_rot = new System.Windows.Forms.Label();
+            this.label_camera_pos = new System.Windows.Forms.Label();
+            this.label_camera_mode = new System.Windows.Forms.Label();
+            this.label_camera_zoom = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // label_step_grid
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Шаг сетки 0.1";
+            this.label_step_grid.AutoSize = true;
+            this.label_step_grid.Location = new System.Drawing.Point(456, 22);
+            this.label_step_grid.Name = "label_step_grid";
+            this.label_step_grid.Size = new System.Drawing.Size(95, 13);
+            this.label_step_grid.TabIndex = 0;
+            this.label_step_grid.Text = "Шаг сетки(+-): 0.1";
             // 
-            // label2
+            // label_camera_rot
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(95, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Угол камеры:(0,0,0)";
+            this.label_camera_rot.AutoSize = true;
+            this.label_camera_rot.Location = new System.Drawing.Point(12, 22);
+            this.label_camera_rot.Name = "label_camera_rot";
+            this.label_camera_rot.Size = new System.Drawing.Size(192, 13);
+            this.label_camera_rot.TabIndex = 1;
+            this.label_camera_rot.Text = "Угол камеры(ad/ws/qe)(x/y/z):(0,0,0)";
+            // 
+            // label_camera_pos
+            // 
+            this.label_camera_pos.AutoSize = true;
+            this.label_camera_pos.Location = new System.Drawing.Point(12, 9);
+            this.label_camera_pos.Name = "label_camera_pos";
+            this.label_camera_pos.Size = new System.Drawing.Size(211, 13);
+            this.label_camera_pos.TabIndex = 2;
+            this.label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):(0,0,0)";
+            this.label_camera_pos.Click += new System.EventHandler(this.label_camera_pos_Click);
+            // 
+            // label_camera_mode
+            // 
+            this.label_camera_mode.AutoSize = true;
+            this.label_camera_mode.Location = new System.Drawing.Point(456, 35);
+            this.label_camera_mode.Name = "label_camera_mode";
+            this.label_camera_mode.Size = new System.Drawing.Size(105, 13);
+            this.label_camera_mode.TabIndex = 3;
+            this.label_camera_mode.Text = "Режим(m): Поворот";
+            // 
+            // label_camera_zoom
+            // 
+            this.label_camera_zoom.AutoSize = true;
+            this.label_camera_zoom.Location = new System.Drawing.Point(456, 9);
+            this.label_camera_zoom.Name = "label_camera_zoom";
+            this.label_camera_zoom.Size = new System.Drawing.Size(105, 13);
+            this.label_camera_zoom.TabIndex = 4;
+            this.label_camera_zoom.Text = "Приближение(zx): 1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 561);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label_camera_zoom);
+            this.Controls.Add(this.label_camera_mode);
+            this.Controls.Add(this.label_camera_pos);
+            this.Controls.Add(this.label_camera_rot);
+            this.Controls.Add(this.label_step_grid);
             this.Name = "MainForm";
             this.Text = "Титов Г. А. о721б";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
@@ -61,8 +95,11 @@ namespace KursachWinForms
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_step_grid;
+        private System.Windows.Forms.Label label_camera_rot;
+        private System.Windows.Forms.Label label_camera_pos;
+        private System.Windows.Forms.Label label_camera_mode;
+        private System.Windows.Forms.Label label_camera_zoom;
     }
 }
 

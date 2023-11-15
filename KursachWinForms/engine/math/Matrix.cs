@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace Engine.Math
 {
     // НЕ ИСПОЛЬЗУЕТСЯ ПОКА ЧТО
-    public class Matrix
+    public sealed class Matrix
     {
         public double[,] matrix;
 

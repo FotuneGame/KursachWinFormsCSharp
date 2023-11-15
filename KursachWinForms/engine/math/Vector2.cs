@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Math
 {
-    public class Vector2
+    public sealed class Vector2
     {
         public double x, y;
 

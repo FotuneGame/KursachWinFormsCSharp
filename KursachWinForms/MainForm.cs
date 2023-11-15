@@ -25,12 +25,18 @@ namespace KursachWinForms
         private int[] pixels;
         private EngineRender engine;
         private readonly int width, height, depth; // глубина прорисовки
-        private const double step_grid=0.1;//шаг сетки
+        private double step_grid;//шаг сетки
+        private char mode_camera; // 'p' - смена позиции камеры, 'r' -  поворота камеры
 
 
         public MainForm()
         {
             InitializeComponent();
+
+            // камера по умолчанию на режиме поворота
+            mode_camera = 'r';
+            //шаг сетки по умолчанию
+            step_grid = 0.1;
 
             //инициализация движка в этом окне
             window_draw = new PictureBox();
@@ -48,16 +54,18 @@ namespace KursachWinForms
             pixels = new int[window_draw.Width * window_draw.Height];
             engine = new EngineRender(pixels,window_draw.Width, window_draw.Height, depth, step_grid, window_draw.BackColor);
 
+
             Start();
         }
 
-        private void camera_TextChanged(object sender, EventArgs e)
+        private void label_camera_pos_Click(object sender, EventArgs e)
         {
 
         }
 
         private void window_Paint(object sender, PaintEventArgs e)
         {
+            engine.step_grid = step_grid;
             engine.Update();
             // Отображение массива пикселей на window_draw
             Bitmap bitmap = new Bitmap(width, height);
@@ -87,7 +95,8 @@ namespace KursachWinForms
             EObject obj = new EObject(obj_trans, obj_rend, "obj");
             engine.EObjects.Add(obj);
 
-            label2.Invalidate();
+            label_step_grid.Invalidate();
+            label_camera_rot.Invalidate();
         }
     }
 }
