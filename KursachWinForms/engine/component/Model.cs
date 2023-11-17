@@ -26,7 +26,7 @@ namespace Engine.Component
             points = new List<Vector3>();
             normals = new List<Vector3>();
             triangle = new List<int[]>();
-            path = "./DefaultModel/cube.obj";
+            path = null;
             read_obj();
         }
 

@@ -27,6 +27,7 @@ namespace KursachWinForms
             this.label_camera_pos = new System.Windows.Forms.Label();
             this.label_camera_mode = new System.Windows.Forms.Label();
             this.label_camera_zoom = new System.Windows.Forms.Label();
+            this.label_render = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_step_grid
@@ -55,7 +56,6 @@ namespace KursachWinForms
             this.label_camera_pos.Size = new System.Drawing.Size(211, 13);
             this.label_camera_pos.TabIndex = 2;
             this.label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):(0,0,0)";
-            this.label_camera_pos.Click += new System.EventHandler(this.label_camera_pos_Click);
             // 
             // label_camera_mode
             // 
@@ -75,11 +75,20 @@ namespace KursachWinForms
             this.label_camera_zoom.TabIndex = 4;
             this.label_camera_zoom.Text = "Приближение(zx): 1";
             // 
+            // label_render
+            // 
+            this.label_render.AutoSize = true;
+            this.label_render.Location = new System.Drawing.Point(266, 9);
+            this.label_render.Name = "label_render";
+            this.label_render.Size = new System.Drawing.Size(0, 13);
+            this.label_render.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 561);
+            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label_render);
             this.Controls.Add(this.label_camera_zoom);
             this.Controls.Add(this.label_camera_mode);
             this.Controls.Add(this.label_camera_pos);
@@ -100,6 +109,7 @@ namespace KursachWinForms
         private System.Windows.Forms.Label label_camera_pos;
         private System.Windows.Forms.Label label_camera_mode;
         private System.Windows.Forms.Label label_camera_zoom;
+        private System.Windows.Forms.Label label_render;
     }
 }
 

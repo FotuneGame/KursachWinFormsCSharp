@@ -60,6 +60,7 @@
     <Compile Include="engine\object\EObject.cs" />
     <Compile Include="engine\object\Grid.cs" />
     <Compile Include="engine\object\Light.cs" />
+    <Compile Include="engine\utilits\SpaceFolder.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,7 +84,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="engine\DefaultModel\cube.obj" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -12,7 +12,11 @@ namespace KursachWinForms
     {
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.M)
+            if(e.KeyCode == Keys.V) {
+                if(mode_camera != 'f') mode_camera = 'f';
+                else mode_camera = 'r';
+            }
+            if(e.KeyCode == Keys.M && mode_camera != 'f')
             {
                 if (mode_camera != 'r')
                 {
@@ -23,10 +27,8 @@ namespace KursachWinForms
                 {
                     label_camera_mode.Text = "Режим(m): Движение";
                     mode_camera = 'p';
-
                 }
-            } 
-
+            }
             if (mode_camera == 'r')
             {
                 if (e.KeyCode == Keys.A)
@@ -41,7 +43,8 @@ namespace KursachWinForms
                     engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, 1);
                 if (e.KeyCode == Keys.E)
                     engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, -1);
-            }else if(mode_camera == 'p')
+            }
+            else if (mode_camera == 'p')
             {
                 if (e.KeyCode == Keys.A)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(step_grid, 0, 0);
@@ -56,18 +59,42 @@ namespace KursachWinForms
                 if (e.KeyCode == Keys.E)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, 0, -step_grid);
             }
+            else if (mode_camera == 'f')
+            {
+                label_render.Text = "Рендер(v)";
+                label_camera_mode.Text = "";
+                label_step_grid.Text = "";
+                label_camera_rot.Text = "";
+                label_camera_pos.Text = "";
+                label_camera_zoom.Text = "";
+                engine.gizmo_draw = false;
+            }
+            
+            if(mode_camera != 'f')
+            {
+                if (e.KeyCode == Keys.Oemplus) step_grid += 0.1;
+                if (e.KeyCode == Keys.OemMinus && System.Math.Round(step_grid, 1) > 0.1) step_grid -= 0.1;
 
-            if (e.KeyCode == Keys.Oemplus) step_grid += 0.1;
-            if (e.KeyCode == Keys.OemMinus && System.Math.Round(step_grid, 1) > 0.1) step_grid -= 0.1;
+                if (e.KeyCode == Keys.Z) engine.MainCamera.zoom += 0.1;
+                if (e.KeyCode == Keys.X && System.Math.Round(engine.MainCamera.zoom, 1) > 0.1) engine.MainCamera.zoom -= 0.1;
+                label_render.Text = "";
+                label_step_grid.Text = "Шаг сетки(+-): " + System.Math.Round(step_grid, 1);
+                label_camera_rot.Text = "Угол камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.angle;
+                label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.position;
+                label_camera_zoom.Text = "Приближение(zx): " + System.Math.Round(engine.MainCamera.zoom, 1);
+                engine.gizmo_draw = true;
+            }
 
-            if (e.KeyCode == Keys.Z) engine.MainCamera.zoom += 0.1;
-            if (e.KeyCode == Keys.X && System.Math.Round(engine.MainCamera.zoom, 1) > 0.1) engine.MainCamera.zoom -= 0.1;
+            // отчистка выбора пользователя
+            if(e.KeyCode == Keys.Escape)
+            {
+                if (this.Controls.ContainsKey("window_add_obj"))
+                    this.Controls.Remove(this.Controls["window_add_obj"]);
+            }
+            
 
+            //обновить отрисовку графики 3д
             window_draw.Invalidate();
-            label_step_grid.Text = "Шаг сетки(+-): " + System.Math.Round(step_grid,1);
-            label_camera_rot.Text = "Угол камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.angle;
-            label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.position;
-            label_camera_zoom.Text = "Приближение(zx): " + System.Math.Round(engine.MainCamera.zoom, 1);
         }
     }
 }

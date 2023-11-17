@@ -18,6 +18,7 @@ namespace Engine.Component
         private Transform transofrm;
         public Color color;
         public Model model;
+        public bool select;
 
 
         public Renderer(Transform transform)
@@ -25,18 +26,21 @@ namespace Engine.Component
             this.transofrm = transform;
             color = Color.Blue;
             model = new Model();
+            select = false;
         }
         public Renderer(Transform transform, Color materialColor)
         {
             this.transofrm = transform;
             color = materialColor;
             model = new Model();
+            select = false;
         }
         public Renderer(Transform transform, Color materialColor, Model modelObject)
         {
             this.transofrm = transform;
             color = materialColor;
             model = modelObject;
+            select = false;
         }
 
         //отрисовка модели линиями
@@ -66,6 +70,10 @@ namespace Engine.Component
                     int y0 = Convert.ToInt32((v0.y + 1.0) * height / 2.0);
                     int x1 = Convert.ToInt32((v1.x + 1.0) * width / 2.0);
                     int y1 = Convert.ToInt32((v1.y + 1.0) * height / 2.0);
+
+                    // не работаем с триугольниками вне экрана
+                    if (x0 < 0 && x1 < 0 || x0 > width && x1 > width) return;
+                    if (y0 < 0 && y1 < 0 || y0 > height && y1 > height) return;
 
                     //рисование линии
                     line(x0, y0, x1, y1, pixel, width, height);
@@ -110,8 +118,8 @@ namespace Engine.Component
                 int y2 = Convert.ToInt32((v2.y + 1.0) * height / 2.0);
                 
                 // не работаем с триугольниками вне экрана
-                if (x0 < 0 || x1 < 0 || x2 < 0 || x0 > width || x1 > width || x2 > width) return;
-                if (y0 < 0 || y1 < 0 || y2 < 0 || y0 > height || y1 > height || y2 > height) return;
+                if (x0 < 0 && x1 < 0 && x2 < 0 || x0 > width && x1 > width && x2 > width) return;
+                if (y0 < 0 && y1 < 0 && y2 < 0 || y0 > height && y1 > height && y2 > height) return;
 
                 int z0 = Convert.ToInt32((v0.z + 1) * depth / 2.0);
                 int z1 = Convert.ToInt32((v1.z + 1) * depth / 2.0);
@@ -124,7 +132,9 @@ namespace Engine.Component
                 // Работаем только с координатами экрана
                 if (intensity_light > 0)
                 {
+
                     Color color_set = Color.FromArgb(color.A, Convert.ToInt32(color.R * intensity_light), Convert.ToInt32(color.G * intensity_light), Convert.ToInt32(color.B * intensity_light));
+                    if(select) color_set = Color.FromArgb(255, Convert.ToInt32(255 * intensity_light),0, 0);
                     triangle(new Vector3(x0, y0, z0), new Vector3(x1, y1, z1), new Vector3(x2, y2, z2), pixel, zbuffer, width, color_set);
                 }
 
