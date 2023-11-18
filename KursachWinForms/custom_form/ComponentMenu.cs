@@ -37,7 +37,7 @@ namespace KursachWinForms.custom_form
             DoubleTextBox pos_x = new DoubleTextBox(main_form, this, select_obj.transform.position.x,"pos_x");
             pos_x.Size = new Size(50, 30);
             pos_x.Location = new Point(0 + this.Width/3 - pos_x.Width, 85);
-            DoubleTextBox pos_y = new DoubleTextBox(main_form, this, select_obj.transform.position.y, "pos_y");
+            DoubleTextBox pos_y = new DoubleTextBox(main_form, this, -select_obj.transform.position.y, "pos_y");
             pos_y.Size = new Size(50, 30);
             pos_y.Location = new Point(50 + this.Width / 3 - pos_y.Width, 85);
             DoubleTextBox pos_z = new DoubleTextBox(main_form, this, select_obj.transform.position.z, "pos_z");
@@ -166,7 +166,7 @@ namespace KursachWinForms.custom_form
             switch (key)
             {
                 case "pos_x":select_obj.transform.position.x = value; break;
-                case "pos_y": select_obj.transform.position.y = value; break;
+                case "pos_y": select_obj.transform.position.y = -value; break;
                 case "pos_z": select_obj.transform.position.z = value; break;
 
                 case "rot_x": select_obj.transform.angle = new Vector3(value, select_obj.transform.angle.y, select_obj.transform.angle.z); break;
