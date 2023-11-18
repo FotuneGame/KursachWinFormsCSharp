@@ -28,6 +28,7 @@ namespace KursachWinForms
             this.label_camera_mode = new System.Windows.Forms.Label();
             this.label_camera_zoom = new System.Windows.Forms.Label();
             this.label_render = new System.Windows.Forms.Label();
+            this.label_for_render = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_step_grid
@@ -83,11 +84,21 @@ namespace KursachWinForms
             this.label_render.Size = new System.Drawing.Size(0, 13);
             this.label_render.TabIndex = 5;
             // 
+            // label_for_render
+            // 
+            this.label_for_render.AutoSize = true;
+            this.label_for_render.Location = new System.Drawing.Point(456, 48);
+            this.label_for_render.Name = "label_for_render";
+            this.label_for_render.Size = new System.Drawing.Size(88, 13);
+            this.label_for_render.TabIndex = 6;
+            this.label_for_render.Text = "Для рендера (v)";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label_for_render);
             this.Controls.Add(this.label_render);
             this.Controls.Add(this.label_camera_zoom);
             this.Controls.Add(this.label_camera_mode);
@@ -110,6 +121,7 @@ namespace KursachWinForms
         private System.Windows.Forms.Label label_camera_mode;
         private System.Windows.Forms.Label label_camera_zoom;
         private System.Windows.Forms.Label label_render;
+        private System.Windows.Forms.Label label_for_render;
     }
 }
 

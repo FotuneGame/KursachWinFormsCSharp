@@ -16,7 +16,7 @@ namespace KursachWinForms
                 if(mode_camera != 'f') mode_camera = 'f';
                 else mode_camera = 'r';
             }
-            if(e.KeyCode == Keys.M && mode_camera != 'f')
+            if(e.KeyCode == Keys.M)
             {
                 if (mode_camera != 'r')
                 {
@@ -62,7 +62,8 @@ namespace KursachWinForms
             else if (mode_camera == 'f')
             {
                 engine.ClearSelectEobjects();
-                label_render.Text = "Рендер(v)";
+                label_render.Text = "Рендер(v/m)";
+                label_for_render.Text = "";
                 label_camera_mode.Text = "";
                 label_step_grid.Text = "";
                 label_camera_rot.Text = "";
@@ -79,6 +80,7 @@ namespace KursachWinForms
                 if (e.KeyCode == Keys.Z) engine.MainCamera.zoom += 0.1;
                 if (e.KeyCode == Keys.X && System.Math.Round(engine.MainCamera.zoom, 1) > 0.1) engine.MainCamera.zoom -= 0.1;
                 label_render.Text = "";
+                label_for_render.Text = "Для рендера (v)";
                 label_step_grid.Text = "Шаг сетки(+-): " + System.Math.Round(step_grid, 1);
                 label_camera_rot.Text = "Угол камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.angle;
                 label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.position;
