@@ -49,6 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="custom_form\ComponentMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="custom_form\DefaultModelMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="custom_form\DoubleTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="engine\component\Model.cs" />
     <Compile Include="engine\component\Renderer.cs" />
     <Compile Include="engine\component\Transform.cs" />
@@ -69,7 +78,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI.cs">
+    <Compile Include="MainFormKeyController.cs">
       <SubType>Form</SubType>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">

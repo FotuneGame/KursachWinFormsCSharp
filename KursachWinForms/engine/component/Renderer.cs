@@ -61,8 +61,8 @@ namespace Engine.Component
                     v0 = v0 + transofrm.position;
                     v1 = v1 + transofrm.position;
                     //поворот объекта для камеры и затем перемещение относительно камеры
-                    v0 = v0 + camera.position;
-                    v1 = v1 + camera.position;
+                    v0 = v0 - new Vector3(camera.position.x,-camera.position.y,camera.position.z);
+                    v1 = v1 - new Vector3(camera.position.x, -camera.position.y, camera.position.z);
                     transofrm.Rotate(v0, camera.angle);
                     transofrm.Rotate(v1, camera.angle);
 
@@ -101,9 +101,9 @@ namespace Engine.Component
                 v1 = v1 + transofrm.position;
                 v2 = v2 + transofrm.position;
                 //поворот объекта для камеры и затем перемещение относительно камеры
-                v0 = v0 + camera.position;
-                v1 = v1 + camera.position;
-                v2 = v2 + camera.position;
+                v0 = v0 - new Vector3(camera.position.x, -camera.position.y, camera.position.z);
+                v1 = v1 - new Vector3(camera.position.x, -camera.position.y, camera.position.z);
+                v2 = v2 - new Vector3(camera.position.x, -camera.position.y, camera.position.z);
                 transofrm.Rotate(v0, camera.angle);
                 transofrm.Rotate(v1, camera.angle);
                 transofrm.Rotate(v2, camera.angle);

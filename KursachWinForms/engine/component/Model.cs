@@ -8,7 +8,7 @@ namespace Engine.Component
 {
     public class Model
     {
-        private string path; 
+        public string path; 
         public List<Vector3> points;
         public List<Vector3> normals;
         public List<int[]> triangle; //индексы точек
@@ -30,16 +30,19 @@ namespace Engine.Component
             read_obj();
         }
 
-        private void read_obj()
+        public bool read_obj()
         {
-            if (path == null && !HaveFile())
+            if (path == null || !HaveFile())
             {
                 Console.WriteLine("Have not a model on format .obj");
-                return;
+                return false;
             }
 
             using(StreamReader sr = new StreamReader(path))
             {
+                points.Clear();
+                normals.Clear();
+                triangle.Clear();
                 Vector3 vct3_tmp;
                 int[] tmp_trian;
                 string line = sr.ReadLine();
@@ -104,14 +107,19 @@ namespace Engine.Component
                     Console.WriteLine(ex.Message);
                 }
                 Console.WriteLine("read_obj finish");
+                return true;
             }
         }
 
         private bool HaveFile()
         {
-            FileInfo fileInf = new FileInfo(path);
-            if (fileInf.Exists && Path.GetExtension(path)==".obj") return true; 
-            else return false;
+            if (path != null && path.Length > 0)
+            {
+                FileInfo fileInf = new FileInfo(path);
+                if (fileInf.Exists && Path.GetExtension(path) == ".obj") return true;
+                else return false;
+            }
+            else { return false; }
         }
 
     }

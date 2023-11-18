@@ -12,6 +12,7 @@ namespace Engine.Object
     // смотрит на начало координат под углом
     public class Camera
     {
+        public Vector3 position;
         // коэфицент приближения
         private double zoom_size;
         public double zoom { 
@@ -23,7 +24,6 @@ namespace Engine.Object
                 }
             }
         }
-        public Vector3 position;
         //угол в радианах (для св-ва преобразуем в градусы)
         private Vector3 angle_rad;
         public Vector3 angle

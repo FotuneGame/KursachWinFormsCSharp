@@ -31,9 +31,9 @@ namespace KursachWinForms
             }
             if (mode_camera == 'r')
             {
-                if (e.KeyCode == Keys.A)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 1, 0);
                 if (e.KeyCode == Keys.D)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 1, 0);
+                if (e.KeyCode == Keys.A)
                     engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, -1, 0);
                 if (e.KeyCode == Keys.W)
                     engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(1, 0, 0);
@@ -46,9 +46,9 @@ namespace KursachWinForms
             }
             else if (mode_camera == 'p')
             {
-                if (e.KeyCode == Keys.A)
-                    engine.MainCamera.position = engine.MainCamera.position + new Vector3(step_grid, 0, 0);
                 if (e.KeyCode == Keys.D)
+                    engine.MainCamera.position = engine.MainCamera.position + new Vector3(step_grid, 0, 0);
+                if (e.KeyCode == Keys.A)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(-step_grid, 0, 0);
                 if (e.KeyCode == Keys.W)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, step_grid, 0);
@@ -61,6 +61,7 @@ namespace KursachWinForms
             }
             else if (mode_camera == 'f')
             {
+                engine.ClearSelectEobjects();
                 label_render.Text = "Рендер(v)";
                 label_camera_mode.Text = "";
                 label_step_grid.Text = "";

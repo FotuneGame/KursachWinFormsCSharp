@@ -4,6 +4,9 @@ using Engine.Math;
 using Engine.Object;
 using Engine.Utilits;
 
+using KursachWinForms.custom_form;
+
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -94,35 +97,7 @@ namespace KursachWinForms
 
                 if (!this.Controls.ContainsKey("window_add_obj"))
                 {
-                    GroupBox add_obj_box = new GroupBox();
-                    add_obj_box.Name = "window_add_obj";
-                    add_obj_box.Location = new Point(e.X, e.Y);
-                    int i = 0;
-                    string[] models = SpaceFolder.getDefaultModels();
-                    for (i=0;i<models.Length; i++)
-                    {
-                        Button btn = new Button();
-                        btn.Name = models[i];
-                        btn.Text = models[i];
-                        btn.Size = new Size(100, 30);
-                        btn.Location = new Point(0, 30 * i);
-                        btn.BringToFront();
-                        btn.Click += (object sender_btn, EventArgs e_btn) => {
-                            Transform obj_trans = new Transform(new Vector3(0, 0, 0), new Vector3(step_grid, step_grid, step_grid), new Vector3(0, 0, 0));
-                            Color obj_color = Color.Gray;
-                            Model obj_model = new Model("./DefaultModel/"+ btn.Text + ".obj");
-                            Renderer obj_rend = new Renderer(obj_trans, obj_color, obj_model);
-                            EObject obj = new EObject(obj_trans, obj_rend, btn.Text);
-                            //удалить выпадающее окно
-                            if (this.Controls.ContainsKey("window_add_obj"))
-                                this.Controls.Remove(this.Controls["window_add_obj"]);
-                            engine.EObjects.Add(obj);
-                            window_draw.Invalidate();// обновить отрисовку
-                            this.Focus(); // вернуть фокус ввода на форму
-                        };
-                        add_obj_box.Controls.Add(btn);
-                    }
-                    add_obj_box.Size = new Size(100, 31 * (i));
+                    DefaultModelMenu add_obj_box = new DefaultModelMenu(engine,window_draw, new Point(e.X, e.Y),step_grid);
                     this.Controls.Add(add_obj_box);
                     add_obj_box.BringToFront();
                 }
@@ -133,6 +108,11 @@ namespace KursachWinForms
                     add_obj_box.BringToFront();
                 }
             }
+            else
+            {
+                if (this.Controls.ContainsKey("window_add_obj"))
+                    this.Controls.Remove(this.Controls["window_add_obj"]);
+            }
 
             if (e.Button == MouseButtons.Left)
             {
@@ -141,37 +121,24 @@ namespace KursachWinForms
                 if (select_obj != null)
                 {
                     // если окно было то пересоздаем его
-                    if (!this.Controls.ContainsKey("window_add_obj"))
-                        this.Controls.Remove(this.Controls["setting_obj"]);
+                    if (this.Controls.ContainsKey("component_menu"))
+                        this.Controls.Remove(this.Controls["component_menu"]);
                    
-                    GroupBox setting_obj = new GroupBox();
-                    setting_obj.Text = select_obj.name;
-                    setting_obj.Name = "setting_obj";
-                    setting_obj.Location = new Point(width, 0);
-                    setting_obj.Size = new Size(this.Width - width, height);
-                    setting_obj.BackColor = Color.White;
-
-
-
-                    this.Controls.Add(setting_obj);
-                    setting_obj.BringToFront();
-
+                    ComponentMenu componentMenu = new ComponentMenu(this,window_draw,select_obj,new Point(width,0),new Size(200,this.Height));
+                    this.Controls.Add(componentMenu);
+                    componentMenu.BringToFront();
                 }
                 else
                 {
                     engine.ClearSelectEobjects();
-                    if (this.Controls.ContainsKey("setting_obj"))
-                        this.Controls.Remove(this.Controls["setting_obj"]);
+                    if (this.Controls.ContainsKey("component_menu"))
+                        this.Controls.Remove(this.Controls["component_menu"]);
                 }
                 window_draw.Invalidate();
             }
 
             this.Focus(); // вернуть фокус ввода на форму
         }
-
-
-
-
 
     }
 }

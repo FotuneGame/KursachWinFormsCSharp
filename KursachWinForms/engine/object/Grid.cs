@@ -44,23 +44,23 @@ namespace Engine.Object
             
             for (int i = -step_load; i <= step_load; i++)
             {
-                v0.set(step_load * step * camera.zoom + camera.position.x, 0 + camera.position.y, step * i * camera.zoom + camera.position.z);
-                v1.set(-step_load * step * camera.zoom + camera.position.x, 0 + camera.position.y, step * i * camera.zoom + camera.position.z);
+                v0.set(step_load * step * camera.zoom - camera.position.x, 0 + camera.position.y, step * i * camera.zoom - camera.position.z);
+                v1.set(-step_load * step * camera.zoom - camera.position.x, 0 + camera.position.y, step * i * camera.zoom - camera.position.z);
                 transform.Rotate(v0, camera.angle);
                 transform.Rotate(v1, camera.angle);
                 if (i == 0) Line(v0,v1, pixel, Color.Red);
                 else Line(v0, v1, pixel, color);
 
-                v0.set(step * i * camera.zoom + camera.position.x, 0 + camera.position.y, step_load * step * camera.zoom + camera.position.z);
-                v1.set(step * i * camera.zoom + camera.position.x, 0 + camera.position.y, -step_load * step * camera.zoom + camera.position.z);
+                v0.set(step * i * camera.zoom - camera.position.x, 0 + camera.position.y, step_load * step * camera.zoom - camera.position.z);
+                v1.set(step * i * camera.zoom - camera.position.x, 0 + camera.position.y, -step_load * step * camera.zoom - camera.position.z);
                 transform.Rotate(v0, camera.angle);
                 transform.Rotate(v1, camera.angle);
                 if (i == 0) Line(v0, v1, pixel, Color.Blue);
                 else Line(v0, v1, pixel, color);
             }
 
-            v0.set(0 + camera.position.x, step_load * camera.zoom + camera.position.y, 0 + camera.position.z);
-            v1.set(0 + camera.position.x, -step_load * camera.zoom + camera.position.y, 0 + camera.position.z);
+            v0.set(0 - camera.position.x, step_load * camera.zoom + camera.position.y, 0 - camera.position.z);
+            v1.set(0 - camera.position.x, -step_load * camera.zoom + camera.position.y, 0 - camera.position.z);
             transform.Rotate(v0, camera.angle);
             transform.Rotate(v1, camera.angle);
             Line(v0, v1, pixel, Color.Green);
