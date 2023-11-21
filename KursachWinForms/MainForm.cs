@@ -1,25 +1,12 @@
 ﻿using Engine;
-using Engine.Component;
-using Engine.Math;
 using Engine.Object;
-using Engine.Utilits;
 
-using KursachWinForms.custom_form;
+using KursachWinForms.CustomForm;
 
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 
 namespace KursachWinForms
@@ -124,7 +111,7 @@ namespace KursachWinForms
                     if (this.Controls.ContainsKey("component_menu"))
                         this.Controls.Remove(this.Controls["component_menu"]);
                    
-                    ComponentMenu componentMenu = new ComponentMenu(this,window_draw,select_obj,new Point(width,0),new Size(200,this.Height));
+                    ComponentMenu componentMenu = new ComponentMenu(this,engine,window_draw,select_obj,new Point(width,0),new Size(200,this.Height));
                     this.Controls.Add(componentMenu);
                     componentMenu.BringToFront();
                 }

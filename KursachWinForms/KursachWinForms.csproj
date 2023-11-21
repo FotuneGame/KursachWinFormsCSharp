@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controller\KeyValue.cs" />
     <Compile Include="custom_form\ComponentMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -58,9 +59,13 @@
     <Compile Include="custom_form\DoubleTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="engine\component\IComponent\IModel.cs" />
+    <Compile Include="engine\component\IComponent\IRenderer.cs" />
+    <Compile Include="engine\component\IComponent\ITransform.cs" />
     <Compile Include="engine\component\Model.cs" />
     <Compile Include="engine\component\Renderer.cs" />
     <Compile Include="engine\component\Transform.cs" />
+    <Compile Include="engine\IEngineRender.cs" />
     <Compile Include="engine\math\Matrix.cs" />
     <Compile Include="engine\math\Vector2.cs" />
     <Compile Include="engine\math\Vector3.cs" />
@@ -68,6 +73,10 @@
     <Compile Include="engine\object\Camera.cs" />
     <Compile Include="engine\object\EObject.cs" />
     <Compile Include="engine\object\Grid.cs" />
+    <Compile Include="engine\object\IObject\ICamera.cs" />
+    <Compile Include="engine\object\IObject\IEObject.cs" />
+    <Compile Include="engine\object\IObject\IGrid.cs" />
+    <Compile Include="engine\object\IObject\ILight.cs" />
     <Compile Include="engine\object\Light.cs" />
     <Compile Include="engine\utilits\SpaceFolder.cs" />
     <Compile Include="MainForm.cs">

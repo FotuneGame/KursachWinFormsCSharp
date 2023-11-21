@@ -3,11 +3,12 @@ using Engine.Component;
 using Engine.Math;
 using Engine.Object;
 using Engine.Utilits;
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace KursachWinForms.custom_form
+namespace KursachWinForms.CustomForm
 {
     internal class DefaultModelMenu: GroupBox
     {

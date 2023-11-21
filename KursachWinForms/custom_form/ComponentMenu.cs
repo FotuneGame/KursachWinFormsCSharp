@@ -1,10 +1,12 @@
-﻿using Engine.Object;
+﻿using Engine;
+using Engine.Object;
 using Engine.Math;
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace KursachWinForms.custom_form
+namespace KursachWinForms.CustomForm
 {
     internal class ComponentMenu: GroupBox
     {
@@ -12,7 +14,7 @@ namespace KursachWinForms.custom_form
         private EObject select_obj;
 
 
-        public ComponentMenu(Form main_form, PictureBox window_draw, EObject select_obj,Point point, Size size)
+        public ComponentMenu(Form main_form, EngineRender engine, PictureBox window_draw, EObject select_obj,Point point, Size size)
         {
             this.window_draw = window_draw;
             this.select_obj = select_obj;
@@ -143,6 +145,7 @@ namespace KursachWinForms.custom_form
             this.Controls.Add(name);
 
             TextBox name_box = new TextBox();
+            name_box.Text = select_obj.name;
             name_box.Size = new Size(150, 30);
             name_box.Location = new Point(this.Size.Width / 3 - name_box.Width / 3, 360);
             name_box.KeyPress += (object sender, KeyPressEventArgs e) =>
@@ -158,6 +161,22 @@ namespace KursachWinForms.custom_form
                 }
             };
             this.Controls.Add(name_box);
+
+
+            Button btn_delete_obj = new Button();
+            btn_delete_obj.BackColor = Color.IndianRed;
+            btn_delete_obj.Size = new Size(150, 30);
+            btn_delete_obj.Location = new Point(this.Size.Width / 3 - btn_delete_obj.Width / 3, 400);
+            btn_delete_obj.Text = "Удалить объект";
+            btn_delete_obj.Click += (object sender, EventArgs e) =>
+            {
+                engine.EObjects.Remove(select_obj);
+                if (main_form.Controls.ContainsKey("component_menu"))
+                    main_form.Controls.Remove(this);
+                window_draw.Invalidate();
+            };
+            this.Controls.Add(btn_delete_obj);
+
 
         }
 

@@ -1,10 +1,10 @@
 ﻿using Engine.Math;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using KursachWinForms.Controller;
+
 using System.Windows.Forms;
+
+using System;
 
 namespace KursachWinForms
 {
@@ -12,11 +12,16 @@ namespace KursachWinForms
     {
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.V) {
-                if(mode_camera != 'f') mode_camera = 'f';
-                else mode_camera = 'r';
+            if ((int)e.KeyCode == (int)KeyValue.Render)
+            {
+                if (mode_camera != 'f') mode_camera = 'f';
+                else
+                {
+                    label_camera_mode.Text = "Режим(m): Поворот";
+                    mode_camera = 'r';
+                }
             }
-            if(e.KeyCode == Keys.M)
+            if((int)e.KeyCode == (int)KeyValue.CameraMode)
             {
                 if (mode_camera != 'r')
                 {
@@ -31,37 +36,41 @@ namespace KursachWinForms
             }
             if (mode_camera == 'r')
             {
-                if (e.KeyCode == Keys.D)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 1, 0);
-                if (e.KeyCode == Keys.A)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, -1, 0);
-                if (e.KeyCode == Keys.W)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(1, 0, 0);
-                if (e.KeyCode == Keys.S)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(-1, 0, 0);
-                if (e.KeyCode == Keys.Q)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, 1);
-                if (e.KeyCode == Keys.E)
-                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, -1);
+                if ((int)e.KeyCode == (int)KeyValue.Right)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, step_grid, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Left)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, -step_grid, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Up)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(step_grid, 0, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Down)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(-step_grid, 0, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Forward)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, step_grid);
+                if ((int)e.KeyCode == (int)KeyValue.Back)
+                    engine.MainCamera.angle = engine.MainCamera.angle + new Vector3(0, 0, -step_grid);
             }
             else if (mode_camera == 'p')
             {
-                if (e.KeyCode == Keys.D)
+                if ((int)e.KeyCode == (int)KeyValue.Right)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(step_grid, 0, 0);
-                if (e.KeyCode == Keys.A)
+                if ((int)e.KeyCode == (int)KeyValue.Left)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(-step_grid, 0, 0);
-                if (e.KeyCode == Keys.W)
+                if ((int)e.KeyCode == (int)KeyValue.Up)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, step_grid, 0);
-                if (e.KeyCode == Keys.S)
+                if ((int)e.KeyCode == (int)KeyValue.Down)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, -step_grid, 0);
-                if (e.KeyCode == Keys.Q)
+                if ((int)e.KeyCode == (int)KeyValue.Forward)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, 0, step_grid);
-                if (e.KeyCode == Keys.E)
+                if ((int)e.KeyCode == (int)KeyValue.Back)
                     engine.MainCamera.position = engine.MainCamera.position + new Vector3(0, 0, -step_grid);
             }
             else if (mode_camera == 'f')
             {
                 engine.ClearSelectEobjects();
+                // если окно выбраного объекта удаляем его
+                if (this.Controls.ContainsKey("component_menu"))
+                    this.Controls.Remove(this.Controls["component_menu"]);
+
                 label_render.Text = "Рендер(v/m)";
                 label_for_render.Text = "";
                 label_camera_mode.Text = "";
@@ -74,11 +83,11 @@ namespace KursachWinForms
             
             if(mode_camera != 'f')
             {
-                if (e.KeyCode == Keys.Oemplus) step_grid += 0.1;
-                if (e.KeyCode == Keys.OemMinus && System.Math.Round(step_grid, 1) > 0.1) step_grid -= 0.1;
+                if ((int)e.KeyCode == (int)KeyValue.GridUp) step_grid += 0.1;
+                if ((int)e.KeyCode == (int)KeyValue.GridDown && System.Math.Round(step_grid, 1) > 0.1) step_grid -= 0.1;
 
-                if (e.KeyCode == Keys.Z) engine.MainCamera.zoom += 0.1;
-                if (e.KeyCode == Keys.X && System.Math.Round(engine.MainCamera.zoom, 1) > 0.1) engine.MainCamera.zoom -= 0.1;
+                if ((int)e.KeyCode == (int)KeyValue.ZoomUp) engine.MainCamera.zoom += step_grid;
+                if ((int)e.KeyCode == (int)KeyValue.ZoomDown && System.Math.Round(engine.MainCamera.zoom, 1) > 0.1) engine.MainCamera.zoom -= step_grid;
                 label_render.Text = "";
                 label_for_render.Text = "Для рендера (v)";
                 label_step_grid.Text = "Шаг сетки(+-): " + System.Math.Round(step_grid, 1);
@@ -89,10 +98,13 @@ namespace KursachWinForms
             }
 
             // отчистка выбора пользователя
-            if(e.KeyCode == Keys.Escape)
+            if((int)e.KeyCode == (int)KeyValue.ClearAll)
             {
+                engine.ClearSelectEobjects();
                 if (this.Controls.ContainsKey("window_add_obj"))
                     this.Controls.Remove(this.Controls["window_add_obj"]);
+                if (this.Controls.ContainsKey("component_menu"))
+                    this.Controls.Remove(this.Controls["component_menu"]);
             }
             
 

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Engine.Component;
+﻿using Engine.Component;
 
 namespace Engine.Object
 {
-    public class EObject
+    public class EObject : IEObject
     {
-        public Transform transform;
-        public Renderer renderer;
-        public string name;
+        public Transform transform { get; set; }
+        public Renderer renderer { get; set; }
+        public string name { get; set; }
 
         public EObject() {
             transform = new Transform();

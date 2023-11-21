@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Engine.Math;
+﻿using Engine.Math;
 
 namespace Engine.Object
 {
-    public class Light
+    public class Light : ILight
     {
-        public Vector3 vector;
+        public Vector3 vector {  get; set; }
 
         public Light() {
             vector = new Vector3(0, 0, -1);

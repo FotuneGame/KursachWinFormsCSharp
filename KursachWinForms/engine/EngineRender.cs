@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-using System.Windows.Forms;
-using Engine.Component;
-using Engine.Math;
 using Engine.Object;
 
 namespace Engine
 {
-    public class EngineRender
+    public class EngineRender : IEngineRender
     {
         public Color backgroud_color;
         public int[] pixel;
-        public Camera MainCamera;
-        public Light MainLight;
-        public List<EObject> EObjects;
 
         public bool gizmo_draw;
-        public readonly int width,height,depth;
+        public readonly int width, height, depth;
         public double step_grid;
-        public int[] zbuffer;
+
+        private int[] zbuffer;
         private Grid grid;
+
+        public Camera MainCamera { get; }
+        public Light MainLight { get; }
+        public List<EObject> EObjects { get; set; }
 
         public EngineRender(int[] pixel, int width, int height, int depth,double step_grid,Color backgroud_color,bool gizmo_draw) {
             this.width = width;
@@ -106,6 +100,8 @@ namespace Engine
             {
                 selet_mouse_obj.renderer.select = true;
                 selet_mouse_obj.renderer.Render(MainCamera, MainLight, pixel, width, depth, height, zbuffer);
+                List<int> view_points = selet_mouse_obj.renderer.GetListFacePoints(MainCamera, pixel, width, depth, height, zbuffer);
+                Console.WriteLine(view_points.Count);
             }
 
             return selet_mouse_obj;

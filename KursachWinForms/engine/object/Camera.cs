@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Engine.Component;
-using Engine.Math;
+﻿using Engine.Math;
 
 namespace Engine.Object
 {
     // смотрит на начало координат под углом
-    public class Camera
+    public class Camera : ICamera
     {
-        public Vector3 position;
+        public Vector3 position { get; set; }
         // коэфицент приближения
         private double zoom_size;
         public double zoom { 

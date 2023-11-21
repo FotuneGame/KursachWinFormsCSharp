@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Engine.Math
 {
-    // НЕ ИСПОЛЬЗУЕТСЯ ПОКА ЧТО
+    // НЕ ИСПОЛЬЗУЕТСЯ (Хотя её надо было использовать для поворотов и перемещений объектов)
     public sealed class Matrix
     {
         public double[,] matrix;

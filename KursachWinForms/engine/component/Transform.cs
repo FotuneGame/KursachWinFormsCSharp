@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Engine.Math;
+﻿using Engine.Math;
 
 namespace Engine.Component
 {
-    public class Transform
+    public class Transform : ITransform
     {
         private Vector3 pos_y_invert;
         public Vector3 position { 
@@ -20,7 +14,7 @@ namespace Engine.Component
                 pos_y_invert.y = -value.y;
             } 
         }
-        public Vector3 size;
+        public Vector3 size { get; set; }
 
         //угол в радианах (для св-ва преобразуем в градусы)
         private Vector3 angle_rad;

@@ -1,12 +1,9 @@
-﻿using Engine.Object;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
-namespace KursachWinForms.custom_form
+using KursachWinForms.Controller;
+
+namespace KursachWinForms.CustomForm
 {
     internal class DoubleTextBox: TextBox
     {
@@ -52,7 +49,7 @@ namespace KursachWinForms.custom_form
 
         private void SetDoubleResult (object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter || e.KeyCode == Keys.Escape)
+            if((int)e.KeyCode == (int)KeyValue.Agree || (int)e.KeyCode == (int)KeyValue.ClearAll)
             {
                 if (Double.TryParse((sender as TextBox).Text, out value))
                 {
@@ -60,6 +57,10 @@ namespace KursachWinForms.custom_form
                         this.FindForm().ActiveControl = null;
                     else
                         main_form.ActiveControl = null;
+
+                    value = value<-100 ? -100 : value;
+                    value = value > 100 ? 100 : value;
+                    (sender as TextBox).Text = value.ToString();
 
                     if (componentMenu != null) componentMenu.UpdateEObject(key,value);
 

@@ -6,12 +6,13 @@ using Engine.Math;
 
 namespace Engine.Component
 {
-    public class Model
+    public class Model: IModel
     {
-        public string path; 
-        public List<Vector3> points;
-        public List<Vector3> normals;
-        public List<int[]> triangle; //индексы точек
+        public string path { get; set; }
+        public List<Vector3> points { get; set; }
+        public List<Vector3> normals { get; set; }
+        public List<int[]> triangle { get; set; } //индексы точек
+
 
         public Model(string path) {
             points = new List<Vector3>();

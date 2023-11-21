@@ -1,19 +1,14 @@
 ﻿using Engine.Component;
 using Engine.Math;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 
 namespace Engine.Object
 {
-    public class Grid
+    public class Grid: IGrid
     {
-        public Color color;
+        public Color color { get; set; }
         private readonly int widht,height,depth;
         private Transform transform;
         public Grid(int widht,int height,int depth)
