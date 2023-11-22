@@ -123,5 +123,13 @@ namespace Engine.Component
             else { return false; }
         }
 
+        //изменение положения вершин 
+        public void EditVeritx(List<int> id_vertex,double force,Vector3 to)
+        {
+            foreach (int id in id_vertex)
+            {
+                points[id] = new Vector3( (points[id] -to).normalize() * force  +  points[id]);
+            }
+        }
     }
 }

@@ -83,6 +83,14 @@ namespace KursachWinForms
             
             if(mode_camera != 'f')
             {
+                //проекции горячими клавишами
+                if ((int)e.KeyCode == (int)KeyValue.Projection_XY)
+                    engine.MainCamera.angle = new Vector3(0, 0, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Projection_XZ)
+                    engine.MainCamera.angle = new Vector3(90, 0, 0);
+                if ((int)e.KeyCode == (int)KeyValue.Projection_YZ)
+                    engine.MainCamera.angle = new Vector3(0, -90, 0);
+
                 if ((int)e.KeyCode == (int)KeyValue.GridUp) step_grid += 0.1;
                 if ((int)e.KeyCode == (int)KeyValue.GridDown && System.Math.Round(step_grid, 1) > 0.1) step_grid -= 0.1;
 
@@ -95,6 +103,7 @@ namespace KursachWinForms
                 label_camera_pos.Text = "Позиция камеры(ad/ws/qe)(x/y/z):" + engine.MainCamera.position;
                 label_camera_zoom.Text = "Приближение(zx): " + System.Math.Round(engine.MainCamera.zoom, 1);
                 engine.gizmo_draw = true;
+
             }
 
             // отчистка выбора пользователя

@@ -11,5 +11,6 @@ namespace Engine.Component
         List<int[]> triangle { get; set; } //индексы точек
 
         bool read_obj(); //считываение из формата obj 
+        void EditVeritx(List<int> id_vertex, double force, Vector3 to);
     }
 }

@@ -19,5 +19,8 @@ namespace KursachWinForms.Controller
         GridDown = Keys.OemMinus,
         ClearAll= Keys.Escape,
         Agree = Keys.Enter,
+        Projection_XY = Keys.NumPad5,
+        Projection_YZ = Keys.NumPad4,
+        Projection_XZ = Keys.NumPad6,
     }
 }

@@ -38,8 +38,8 @@ namespace Engine.Component
             select = false;
         }
 
-        //все вершины видные камере
-        public List<int> GetListFacePoints(Camera camera, int[] pixel, int width, int height, int depth, int[] zbuffer)
+        //все вершины видимые камере вершины в диапазоне кисти
+        public List<int> GetListFacePoints(Camera camera, int[] pixel, int width, int height, int depth, int[] zbuffer,int radius,Vector2 mouse_pos)
         {
             Vector3 v0;
             List<int> result = new List<int>();
@@ -56,9 +56,13 @@ namespace Engine.Component
                 int x0 = Convert.ToInt32((v0.x + 1.0) * width / 2.0);
                 int y0 = Convert.ToInt32((v0.y + 1.0) * height / 2.0);
                 int z0 = Convert.ToInt32((v0.z + 1) * depth / 2.0);
+
+                //проверка на вхождение экранных координат вершины в диапозон кисти
+                if (x0 < (mouse_pos.x - radius) || x0 > (mouse_pos.x + radius)) continue;
+                if (y0 < (mouse_pos.y - radius) || y0 > (mouse_pos.y + radius)) continue;
+
                 if ((x0 + y0 * width) >= 0 && (x0 + y0 * width) < width * height )
                 {
-                    //Console.WriteLine(v0+" " + z0+"=="+ zbuffer[Convert.ToInt32(x0 + y0 * width)]);
                     pixel[Convert.ToInt32(x0 + y0 * width)] = Color.Green.ToArgb();
                     if (z0 == zbuffer[Convert.ToInt32(x0 + y0 * width)])
                     {

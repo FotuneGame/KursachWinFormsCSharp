@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Engine.Object;
+using Engine.Math;
 
 namespace Engine
 {
@@ -53,6 +54,7 @@ namespace Engine
             }
         }
 
+
         public void ClearSelectEobjects()
         {
             for (int i = 0; i < EObjects.Count; i++)
@@ -62,7 +64,7 @@ namespace Engine
         }
 
 
-        public EObject Update(int mouse_x=-1, int mouse_y = -1)
+        public EObject RenderAndSelect(int mouse_x=-1, int mouse_y = -1)
         {
             clear_screen();
             alloc_zbuffer();
@@ -100,13 +102,20 @@ namespace Engine
             {
                 selet_mouse_obj.renderer.select = true;
                 selet_mouse_obj.renderer.Render(MainCamera, MainLight, pixel, width, depth, height, zbuffer);
-                List<int> view_points = selet_mouse_obj.renderer.GetListFacePoints(MainCamera, pixel, width, depth, height, zbuffer);
-                Console.WriteLine(view_points.Count);
             }
 
             return selet_mouse_obj;
         }
-        
+
+        public void EditSelectModel(EObject select_obj,int radius, double force, int mouse_x, int mouse_y)
+        {
+            if (gizmo_draw && select_obj != null)
+            {
+                List<int> view_points = select_obj.renderer.GetListFacePoints(MainCamera, pixel, width, depth, height, zbuffer,radius,new Vector2(mouse_x, mouse_y));
+                select_obj.renderer.model.EditVeritx(view_points, force, select_obj.transform.position- MainCamera.position);
+                RenderAndSelect();
+            }
+        }
 
     }
 }

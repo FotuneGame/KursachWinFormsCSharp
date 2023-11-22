@@ -10,7 +10,8 @@ namespace Engine
         List<EObject> EObjects { get; set; }
 
         void ClearSelectEobjects();
-        EObject Update(int mouse_x = -1, int mouse_y = -1); // обновляет и возвращает выделенный объект (лучше бы разделить)
+        EObject RenderAndSelect(int mouse_x = -1, int mouse_y = -1); // рендерит и возвращает выделенный объект (лучше бы разделить)
 
+        void EditSelectModel(EObject select_obj,int radius, double force, int mouse_x = -1, int mouse_y = -1);
     }
 }

@@ -108,7 +108,7 @@ namespace KursachWinForms.CustomForm
                     select_obj.renderer.color = color_obj.Color;
                     window_draw.Invalidate();
                 }
-
+                main_form.ActiveControl = null;
             };
             this.Controls.Add(btn_color);
 
@@ -163,10 +163,17 @@ namespace KursachWinForms.CustomForm
             this.Controls.Add(name_box);
 
 
+            PaintMenu paintMenu = new PaintMenu(main_form,engine,window_draw,select_obj,new Point(0, 400),new Size(this.Size.Width,120));
+            this.Controls.Add(paintMenu);
+
+
+
+
+
             Button btn_delete_obj = new Button();
             btn_delete_obj.BackColor = Color.IndianRed;
             btn_delete_obj.Size = new Size(150, 30);
-            btn_delete_obj.Location = new Point(this.Size.Width / 3 - btn_delete_obj.Width / 3, 400);
+            btn_delete_obj.Location = new Point(this.Size.Width / 3 - btn_delete_obj.Width / 3, this.Size.Height-70);
             btn_delete_obj.Text = "Удалить объект";
             btn_delete_obj.Click += (object sender, EventArgs e) =>
             {

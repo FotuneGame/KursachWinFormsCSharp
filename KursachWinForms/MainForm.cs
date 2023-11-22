@@ -23,6 +23,7 @@ namespace KursachWinForms
         private char mode_camera; // 'p' - смена позиции камеры, 'r' -  поворота камеры, f (final) - конечный рендер
 
 
+
         public MainForm()
         {
             InitializeComponent();
@@ -66,7 +67,7 @@ namespace KursachWinForms
         private void window_Paint(object sender, PaintEventArgs e)
         {
             engine.step_grid = step_grid;
-            engine.Update();
+            engine.RenderAndSelect();
             // Отображение массива пикселей на window_draw
             Bitmap bitmap = new Bitmap(width, height);
             BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
@@ -104,7 +105,7 @@ namespace KursachWinForms
             if (e.Button == MouseButtons.Left)
             {
                 engine.ClearSelectEobjects();
-                EObject select_obj = engine.Update(e.X,e.Y);
+                EObject select_obj = engine.RenderAndSelect(e.X,e.Y);
                 if (select_obj != null)
                 {
                     // если окно было то пересоздаем его
