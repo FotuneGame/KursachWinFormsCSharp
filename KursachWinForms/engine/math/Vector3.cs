@@ -71,16 +71,6 @@ namespace Engine.Math
             return System.Math.Sqrt(x * x + y * y + z * z);
         }
 
-        public Matrix v2m()
-        {
-            double[,] res= new double[4, 1];
-            res[0, 0] = x;
-            res[1, 0] = y;
-            res[2, 0] = z;
-            res[3, 0] = 1;
-            return new Matrix(res);
-        }
-
     }
 
 }

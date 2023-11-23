@@ -39,7 +39,7 @@ namespace Engine
         private void alloc_zbuffer()
         {
             //генерим минус бесконечностью
-            zbuffer = new int[width * height];
+            if(zbuffer==null) zbuffer = new int[width * height];
             for(int i = 0; i < width * height; i++)
             {
                 zbuffer[i] = int.MinValue;

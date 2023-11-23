@@ -18,14 +18,11 @@ namespace KursachWinForms.CustomForm
         private bool mode = false;
 
         private PictureBox paint_image;
-
-        private Form main_form;
         private PictureBox window_draw;
         private EObject select_obj;
-        EngineRender engine;
+        private EngineRender engine;
         public PaintMenu(Form main_form, EngineRender engine, PictureBox window_draw, EObject select_obj, Point point, Size size)
         {
-            this.main_form = main_form;
             this.engine = engine;
             this.window_draw = window_draw;
             this.select_obj = select_obj;
